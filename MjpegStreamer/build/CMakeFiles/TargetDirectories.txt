@@ -1,0 +1,3 @@
+/home/wenbo/C++_tool/MjpegStreamer/build/CMakeFiles/MjpegStreamer.dir
+/home/wenbo/C++_tool/MjpegStreamer/build/CMakeFiles/edit_cache.dir
+/home/wenbo/C++_tool/MjpegStreamer/build/CMakeFiles/rebuild_cache.dir
