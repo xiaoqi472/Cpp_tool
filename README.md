@@ -83,6 +83,42 @@ const auto& state = my_door.get_state();
 
 ---
 
+### 3. baremetal_scheduler — 裸机协作式任务调度器
+
+**路径：** ` baremetal_scheduler/`
+
+轻量级裸机协作式调度器，适用于 STM32 等嵌入式平台。无需 RTOS，仅依赖系统滴答计时器（HAL_GetTick），即可实现多任务周期性调度。纯 C 实现，无动态内存分配，利用无符号减法处理 tick 溢出。
+
+**依赖：** 纯 C（C99），无第三方库
+
+**使用方式：**
+
+```c
+#include "scheduler.h"
+
+void led_task(void)  { /* 闪烁 LED */ }
+void comm_task(void) { /* 处理通信 */ }
+
+task_t my_tasks[] = {
+    {led_task,  500, 0},  // 每 500ms 执行一次
+    {comm_task,  10, 0},  // 每 10ms  执行一次
+};
+
+int main(void)
+{
+    scheduler_init(my_tasks, sizeof(my_tasks) / sizeof(task_t));
+    while (1) {
+        scheduler_run(HAL_GetTick());
+    }
+}
+```
+
+**核心文件：**
+- `inc/scheduler.h` — 数据结构与接口声明
+- `src/scheduler.c` — 调度器实现
+
+---
+
 ## 目录结构
 
 ```
@@ -93,10 +129,15 @@ C++_tool/
 │   ├── MjpegStreamer.cpp
 │   ├── main.cpp
 │   └── CMakeLists.txt
-└── StateMachine/
-    ├── lib/
-    │   ├── StateMachine.h
-    │   └── Door.h
-    ├── main.cpp
-    └── CMakeLists.txt
+├── StateMachine/
+│   ├── lib/
+│   │   ├── StateMachine.h
+│   │   └── Door.h
+│   ├── main.cpp
+│   └── CMakeLists.txt
+└──  baremetal_scheduler/
+    ├── inc/
+    │   └── scheduler.h
+    └── src/
+        └── scheduler.c
 ```
