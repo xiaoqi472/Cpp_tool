@@ -83,9 +83,9 @@ const auto& state = my_door.get_state();
 
 ---
 
-### 3. baremetal_scheduler — 裸机协作式任务调度器
+### 3. BareMetalScheduler — 裸机协作式任务调度器
 
-**路径：** ` baremetal_scheduler/`
+**路径：** ` BareMetalScheduler/`
 
 轻量级裸机协作式调度器，适用于 STM32 等嵌入式平台。无需 RTOS，仅依赖系统滴答计时器（HAL_GetTick），即可实现多任务周期性调度。纯 C 实现，无动态内存分配，利用无符号减法处理 tick 溢出。
 
@@ -135,7 +135,7 @@ C++_tool/
 │   │   └── Door.h
 │   ├── main.cpp
 │   └── CMakeLists.txt
-└──  baremetal_scheduler/
+└──  BareMetalScheduler/
     ├── inc/
     │   └── scheduler.h
     └── src/
